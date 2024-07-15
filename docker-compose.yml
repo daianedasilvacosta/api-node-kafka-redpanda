@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  redpanda:
+    image: vectorized/redpanda:latest
+    command:
+      - redpanda
+      - start
+      - --overprovisioned
+      - --smp
+      - '1'
+      - --memory
+      - 1G
+      - --reserve-memory
+      - 0M
+      - --node-id
+      - '0'
+      - --check=false
+      - --advertise-kafka-addr
+      - redpanda:9092
+    ports:
+      - "9092:9092"
+      - "9644:9644"
+
+  redpanda-console:
+    image: docker.redpanda.com/vectorized/console:latest
+    container_name: redpanda-console
+    ports:
+      - "8080:8080"
+    environment:
+      KAFKA_BROKERS: 'redpanda:9092'
+      KAFKA_TLS_ENABLED: 'false'
+      REDPANDA_CONSOLE_TLS_ENABLED: 'false'
+      CONNECT_ENABLED: 'false'
+      SCHEMAREGISTRY_ENABLED: 'false'
+    depends_on:
+      - redpanda
+
+  producer-api:
+    build: ./producer
+    ports:
+      - "3001:3001"
+    depends_on:
+      - redpanda
+
+  consumer-api:
+    build: ./consumer
+    ports:
+      - "3002:3002"
+    depends_on:
+      - redpanda

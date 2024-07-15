@@ -1,0 +1,58 @@
+# links de ajuda/referencia
+https://redpanda.com/guides/kafka-tutorial/kafka-console-producer
+https://medium.com/@giovannibayerlein12/nodejs-consumindo-e-produzindo-mensagens-c-apache-kafka-8b40dda6f47e
+https://questdb.io/docs/third-party-tools/redpanda/
+https://www.youtube.com/watch?v=73JZSsguGtU&t=184s
+
+# dentro da pasta consumer instale os pacotes
+package-lock.json com comando
+npm install express kafkajs
+
+dentro da pasta crie um arquivo com nome package.json 
+// consumer/package.json
+{
+  "name": "consumer-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "kafkajs": "^1.15.0"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
+
+
+# dentro da pasta produter instale os pacotes
+package-lock.json com comando
+npm install express kafkajs
+dentro da pasta crie um arquivo com nome package.json 
+
+// producer/package.json
+{
+  "name": "producer-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "kafkajs": "^1.15.0"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
+
+# retorne para a pasta que esta o docker-compose.yml e execute
+docker-compose up --build
+
+# para parar a execução e para excluir volomes
+docker-compose down
+docker-compose down -v
+
